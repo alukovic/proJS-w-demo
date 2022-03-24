@@ -275,7 +275,7 @@ function watermarkF(){
                         data: {
                             labels: nizA,
                             datasets: [{
-                                label: '#',
+                                label: 'Pseudo-code value | Input signal',
                                 data: nizA,
                                 backgroundColor: [
                                    'rgba(47, 38, 173, 0.2)' 
@@ -332,7 +332,7 @@ function watermarkF(){
                         data: {
                             labels: nizA,
                             datasets: [{
-                                label: '#',
+                                label: 'Pseudo code-value | NRZ | Input signal',
                                 data: NRZsekvenca,
                                 backgroundColor: [
                                    'rgba(47, 38, 173, 0.2)' 
@@ -364,7 +364,7 @@ function watermarkF(){
                         }
                         });
             
-                        f = 64;
+                        f = 5;
                         T = 1;
                         t = 0.05;
             
@@ -395,22 +395,22 @@ function watermarkF(){
             
                         modulacija = nosilac.map(a => {
             
-                            for(i = 0; i < f; i += t){
+                            for(let i = 0; i < f; i += t){
             
                                 s++;
                 
                                 vr = Number((Math.sqrt(2/T)) * Math.cos(2 * Math.PI * f * t * i)).toFixed(2);
-                                modulacijaA.push(1 * vr); 
+                                modulacijaA.push(vr); 
                                 sNiz.push(s);
+
+                                if(a > 0){
+                                    modulacijaAa = modulacijaA.map(a => a);
+                                } else {
+                                    modulacijaAa = modulacijaA.map(a => - a);
+                                }
 
                             }
                             
-                            if(a > 0){
-                                modulacijaAa = modulacijaA.map(a => a);
-                            } else {
-                                modulacijaAa = modulacijaA.map(a => - a);
-                            }
-
                             return modulacijaAa;
 
                         });
@@ -469,16 +469,21 @@ function watermarkF(){
                         console.log('sNiz: ', sNiz);
 
                         //Aca 2.4.4 24.3.2022. Čet. | test
-                        nizM = new Array();
-                        nizM = modulacijAa.map(() => {
+                        nizM = new Array(64);
+                        console.log('modulacijaAa: ', modulacijaAa);
+                        nizMf = new Array();
 
-                            modulacijaAa.reduce((x, y) => {
-                                return x - y;
-                            });
+                        let aN = Number(Math.round(Math.random() * 10));
+                        console.log('aN = ', aN);
+        
+                        for(let i = aN; i < aN + 64; i++){
+                            nizM.push(modulacijaAa[i]);
+                        }
 
-                        });
+                        nizMf = nizM.filter(String);
 
                         console.log('nizM: ', nizM);
+                        console.log('nizMf: ', nizMf);
             
                     });
             
