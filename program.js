@@ -472,6 +472,7 @@ function watermarkF(){
                         nizM = new Array(64);
                         console.log('modulacijaAa: ', modulacijaAa);
                         nizMf = new Array();
+                        arSrMf = new Number();
 
                         let aN = Number(Math.round(Math.random() * 10));
                         console.log('aN = ', aN);
@@ -481,10 +482,11 @@ function watermarkF(){
                         }
 
                         nizMf = nizM.filter(String);
-
+                        arSrMf = Number((nizMf.reduce((a, b) => a + b) / nizMf.length).toFixed(2));
                         console.log('nizM: ', nizM);
                         console.log('nizMf: ', nizMf);
-            
+                        console.log('vrMf: ', arSrMf);
+
                     });
             
                     /*divA2 */
