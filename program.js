@@ -192,221 +192,8 @@ function watermarkF(){
                     });
             
                      /*divA */
-                    //BPSK modulacija
                     /*divA1 */
-            
-                    let divAa = document.createElement('div');
-                    proJS.appendChild(divAa);
-            
-                    //BPSK
-            
-            
-                    let btnBit = document.createElement('button');
-                    btnBit.textContent = 'BPSK';
-                    divAa.appendChild(btnBit);
-            
-                    btnBit.addEventListener('click', function(){
-            
-                        console.log('Aca 2.4.4 | 14.3.2022. Pon. - BPSK početak');
-                        bit = [1, 0, 1, 0, 1];
-                        console.log('Sekvenca ulaznih bita: ', bit);
-            
-                        let canvasBit = document.createElement('canvas');
-                        divAa.appendChild(canvasBit);
-            
-                        const ctxBit = canvasBit.getContext('2d');
-                        const bitGraf = new Chart(ctxBit, {
-                        type: 'bar',
-                        data: {
-                            labels: bit,
-                            datasets: [{
-                                label: '#',
-                                data: bit,
-                                backgroundColor: [
-                                   'rgba(47, 38, 173, 0.2)' 
-                                //'rgba(255, 99, 132, 0.2)',
-                                //'rgba(54, 162, 235, 0.2)',
-                                //'rgba(255, 206, 86, 0.2)',
-                                //'rgba(75, 192, 192, 0.2)',
-                                //'rgba(153, 102, 255, 0.2)',
-                                //'rgba(255, 159, 64, 0.2)'
-                                ],
-                                borderColor: [
-                                    //'rgba(255, 99, 132, 1)',
-                                    //'rgba(54, 162, 235, 1)',
-                                    //'rgba(255, 206, 86, 1)',
-                                    //'rgba(75, 192, 192, 1)',
-                                    //'rgba(153, 102, 255, 1)',
-                                    //'rgba(255, 159, 64, 1)'
-                                    'black'
-                                ],
-                                borderWidth: 1
-                            }]
-                        },
-                        options: {
-                            scales: {
-                                y: {
-                                beginAtZero: true
-                                }
-                            }
-                        }
-                        });
-            
-                    console.log('Sekvenca bez vraćanja na nulu - NRZ');
-            
-                        NRZsekvenca = new Array();
-                        Vp = 1;
-                        NRZsekvenca = bit.map((a) => {
-            
-                            if(a >= 1){
-                                return a * Vp;
-                            } else if(a < 1){
-                                return -Vp;
-                            }
-            
-                        });
-            
-                        console.log('Nove vrednosti NRZ sekvence su: ', NRZsekvenca);
-            
-                        let canvasNRZ = document.createElement('canvas');
-                        divAa.appendChild(canvasNRZ);
-            
-                        const ctxNRZ = canvasNRZ.getContext('2d');
-                        const NRZGraf = new Chart(ctxNRZ, {
-                        type: 'bar',
-                        data: {
-                            labels: bit,
-                            datasets: [{
-                                label: '#',
-                                data: NRZsekvenca,
-                                backgroundColor: [
-                                   'rgba(47, 38, 173, 0.2)' 
-                                //'rgba(255, 99, 132, 0.2)',
-                                //'rgba(54, 162, 235, 0.2)',
-                                //'rgba(255, 206, 86, 0.2)',
-                                //'rgba(75, 192, 192, 0.2)',
-                                //'rgba(153, 102, 255, 0.2)',
-                                //'rgba(255, 159, 64, 0.2)'
-                                ],
-                                borderColor: [
-                                    //'rgba(255, 99, 132, 1)',
-                                    //'rgba(54, 162, 235, 1)',
-                                    //'rgba(255, 206, 86, 1)',
-                                    //'rgba(75, 192, 192, 1)',
-                                    //'rgba(153, 102, 255, 1)',
-                                    //'rgba(255, 159, 64, 1)'
-                                    'black'
-                                ],
-                                borderWidth: 1
-                            }]
-                        },
-                        options: {
-                            scales: {
-                                y: {
-                                beginAtZero: true
-                                }
-                            }
-                        }
-                        });
-            
-                        f = 5;
-                        T = 1;
-                        t = 0.05;
-            
-                        nosilac = new Array();
-                        vr = new Number();
-            
-                        nosilac = NRZsekvenca.map(a => {
-            
-                            return (a * (Math.sqrt(2/T)) * Math.cos(2 * Math.PI * f * t)).toFixed(2);
-            
-                        });
-            
-                        /*
-                        //test preko for petlje
-                        for(let i = 0; i < f; i +=t){
-            
-                            vr = (Math.sqrt(2/T)) * Math.cos(2 * Math.PI * f * t * i);
-                            nosilac.push(vr);
-            
-                        }
-                        */
-            
-                        modulacija = new Array();
-                        modulacijaA = new Array();
-                        s = 0;
-                        sNiz = new Array();
-            
-                        modulacija = nosilac.map(a => {
-            
-                            for(let i = 0; i < f; i += t){
-            
-                                s++;
-                                vr = Number((Math.sqrt(2/T)) * Math.cos(2 * Math.PI * f * t * i)).toFixed(2);
-                                modulacijaA.push(vr); 
-                                sNiz.push(s);
-            
-                            }
-            
-                            
-                            return modulacijaA;
-            
-                        });
-            
-                        console.log('Nosilac: ', nosilac);
-                        console.log('ModulacijaA: ', modulacijaA);
-            
-                        let canvasModulacija = document.createElement('canvas');
-                        divAa.appendChild(canvasModulacija);
-            
-                        const ctxModulacija = canvasModulacija.getContext('2d');
-                        const modulacijaGraf = new Chart(ctxModulacija, {
-                        type: 'bar',
-                        data: {
-                            labels: sNiz, //modulacijaA
-                            datasets: [{
-                                //label: 'Vrednosti signala nakon BPSK modulacije',
-                                label: 'Signal values after BPSK modulation',
-                                data: modulacijaA,
-                                backgroundColor: [
-                                   'rgba(47, 38, 173, 0.2)' 
-                                //'rgba(255, 99, 132, 0.2)',
-                                //'rgba(54, 162, 235, 0.2)',
-                                //'rgba(255, 206, 86, 0.2)',
-                                //'rgba(75, 192, 192, 0.2)',
-                                //'rgba(153, 102, 255, 0.2)',
-                                //'rgba(255, 159, 64, 0.2)'
-                                ],
-                                borderColor: [
-                                    //'rgba(255, 99, 132, 1)',
-                                    //'rgba(54, 162, 235, 1)',
-                                    //'rgba(255, 206, 86, 1)',
-                                    //'rgba(75, 192, 192, 1)',
-                                    //'rgba(153, 102, 255, 1)',
-                                    //'rgba(255, 159, 64, 1)'
-                                    'black'
-                                ],
-                                borderWidth: 1
-                            }]
-                        },
-                        options: {
-                            scales: {
-                                y: {
-                                beginAtZero: true
-                                }
-                            }
-                        }
-                        });
-            
-                        //
-                        console.log('Bit: ', bit);
-                        console.log('NRZ sekvenca: ', NRZsekvenca);
-                        console.log('Nosilac: ', nosilac);
-                        console.log('Modulacija: ', modulacija);
-                        console.log('sNiz: ', sNiz);
-            
-                    });
-            
+
                     //Generisanje pseudo-slučajnog koda:
                     let divA1 = document.createElement('div');
                     proJS.appendChild(divA1);
@@ -421,12 +208,13 @@ function watermarkF(){
                     btnWpseudoKod.textContent = 'Pseudo-code';
                     btnWpseudoKod.style.width = '8em';
                     divA1.appendChild(btnWpseudoKod);
-            
+                    
+                    let N = 64;
+
+                    //Globalni niz - bez let
+                    nizA = new Array();
+
                     btnWpseudoKod.addEventListener('click', () => {
-            
-                        let N = 64;
-                        //Globalni niz - bez let
-                        nizA = new Array();
             
                         const bitovi = (a, b) => {
                             return Math.floor((Math.random() * (b - a + 0.75))) + a;
@@ -461,6 +249,238 @@ function watermarkF(){
                     });
             
                     /*divA1 */
+
+                                
+                    let divAa = document.createElement('div');
+                    proJS.appendChild(divAa);
+            
+                    //BPSK modulacija 
+                    let btnBit = document.createElement('button');
+                    btnBit.textContent = 'BPSK';
+                    divAa.appendChild(btnBit);
+            
+                    btnBit.addEventListener('click', function(){
+            
+                        console.log('Aca 2.4.4 | 14.3.2022. Pon. - BPSK početak');
+                        console.log('Aca 2.4.4 | 24.3.2022. Čet. - BPSK nastavak');
+                        //bit = [1, 0, 1, 0, 1];
+                        console.log('Sekvenca ulaznih bita: ', nizA);
+            
+                        let canvasBit = document.createElement('canvas');
+                        divAa.appendChild(canvasBit);
+            
+                        const ctxBit = canvasBit.getContext('2d');
+                        const bitGraf = new Chart(ctxBit, {
+                        type: 'bar',
+                        data: {
+                            labels: nizA,
+                            datasets: [{
+                                label: '#',
+                                data: nizA,
+                                backgroundColor: [
+                                   'rgba(47, 38, 173, 0.2)' 
+                                //'rgba(255, 99, 132, 0.2)',
+                                //'rgba(54, 162, 235, 0.2)',
+                                //'rgba(255, 206, 86, 0.2)',
+                                //'rgba(75, 192, 192, 0.2)',
+                                //'rgba(153, 102, 255, 0.2)',
+                                //'rgba(255, 159, 64, 0.2)'
+                                ],
+                                borderColor: [
+                                    //'rgba(255, 99, 132, 1)',
+                                    //'rgba(54, 162, 235, 1)',
+                                    //'rgba(255, 206, 86, 1)',
+                                    //'rgba(75, 192, 192, 1)',
+                                    //'rgba(153, 102, 255, 1)',
+                                    //'rgba(255, 159, 64, 1)'
+                                    'black'
+                                ],
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                y: {
+                                beginAtZero: true
+                                }
+                            }
+                        }
+                        });
+            
+                    console.log('Sekvenca bez vraćanja na nulu - NRZ');
+            
+                        NRZsekvenca = new Array();
+                        Vp = 1;
+                        NRZsekvenca = nizA.map((a) => {
+            
+                            if(a >= 1){
+                                return a * Vp;
+                            } else if(a < 1){
+                                return -Vp;
+                            }
+            
+                        });
+            
+                        console.log('Nove vrednosti NRZ sekvence su: ', NRZsekvenca);
+            
+                        let canvasNRZ = document.createElement('canvas');
+                        divAa.appendChild(canvasNRZ);
+            
+                        const ctxNRZ = canvasNRZ.getContext('2d');
+                        const NRZGraf = new Chart(ctxNRZ, {
+                        type: 'bar',
+                        data: {
+                            labels: nizA,
+                            datasets: [{
+                                label: '#',
+                                data: NRZsekvenca,
+                                backgroundColor: [
+                                   'rgba(47, 38, 173, 0.2)' 
+                                //'rgba(255, 99, 132, 0.2)',
+                                //'rgba(54, 162, 235, 0.2)',
+                                //'rgba(255, 206, 86, 0.2)',
+                                //'rgba(75, 192, 192, 0.2)',
+                                //'rgba(153, 102, 255, 0.2)',
+                                //'rgba(255, 159, 64, 0.2)'
+                                ],
+                                borderColor: [
+                                    //'rgba(255, 99, 132, 1)',
+                                    //'rgba(54, 162, 235, 1)',
+                                    //'rgba(255, 206, 86, 1)',
+                                    //'rgba(75, 192, 192, 1)',
+                                    //'rgba(153, 102, 255, 1)',
+                                    //'rgba(255, 159, 64, 1)'
+                                    'black'
+                                ],
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                y: {
+                                beginAtZero: true
+                                }
+                            }
+                        }
+                        });
+            
+                        f = 64;
+                        T = 1;
+                        t = 0.05;
+            
+                        nosilac = new Array();
+                        vr = new Number();
+            
+                        nosilac = NRZsekvenca.map(a => {
+            
+                            return (a * (Math.sqrt(2/T)) * Math.cos(2 * Math.PI * f * t)).toFixed(2);
+            
+                        });
+            
+                        /*
+                        //test preko for petlje
+                        for(let i = 0; i < f; i +=t){
+            
+                            vr = (Math.sqrt(2/T)) * Math.cos(2 * Math.PI * f * t * i);
+                            nosilac.push(vr);
+            
+                        }
+                        */
+            
+                        modulacija = new Array();
+                        modulacijaA = new Array();
+                        modulacijaAa = new Array();
+                        s = 0;
+                        sNiz = new Array();
+            
+                        modulacija = nosilac.map(a => {
+            
+                            for(i = 0; i < f; i += t){
+            
+                                s++;
+                
+                                vr = Number((Math.sqrt(2/T)) * Math.cos(2 * Math.PI * f * t * i)).toFixed(2);
+                                modulacijaA.push(1 * vr); 
+                                sNiz.push(s);
+
+                            }
+                            
+                            if(a > 0){
+                                modulacijaAa = modulacijaA.map(a => a);
+                            } else {
+                                modulacijaAa = modulacijaA.map(a => - a);
+                            }
+
+                            return modulacijaAa;
+
+                        });
+            
+                        console.log('Nosilac: ', nosilac);
+                        console.log('ModulacijaA: ', modulacijaA);
+                        console.log('ModulacijaAa: ', modulacijaAa);
+
+                        let canvasModulacija = document.createElement('canvas');
+                        divAa.appendChild(canvasModulacija);
+            
+                        const ctxModulacija = canvasModulacija.getContext('2d');
+                        const modulacijaGraf = new Chart(ctxModulacija, {
+                        type: 'bar',
+                        data: {
+                            labels: sNiz, //modulacijaA
+                            datasets: [{
+                                //label: 'Vrednosti signala nakon BPSK modulacije',
+                                label: 'Signal values after BPSK modulation',
+                                data: modulacijaAa,
+                                backgroundColor: [
+                                   'rgba(47, 38, 173, 0.2)' 
+                                //'rgba(255, 99, 132, 0.2)',
+                                //'rgba(54, 162, 235, 0.2)',
+                                //'rgba(255, 206, 86, 0.2)',
+                                //'rgba(75, 192, 192, 0.2)',
+                                //'rgba(153, 102, 255, 0.2)',
+                                //'rgba(255, 159, 64, 0.2)'
+                                ],
+                                borderColor: [
+                                    //'rgba(255, 99, 132, 1)',
+                                    //'rgba(54, 162, 235, 1)',
+                                    //'rgba(255, 206, 86, 1)',
+                                    //'rgba(75, 192, 192, 1)',
+                                    //'rgba(153, 102, 255, 1)',
+                                    //'rgba(255, 159, 64, 1)'
+                                    'black'
+                                ],
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                y: {
+                                beginAtZero: true
+                                }
+                            }
+                        }
+                        });
+            
+                        //
+                        console.log('Bit: ', nizA);
+                        console.log('NRZ sekvenca: ', NRZsekvenca);
+                        console.log('Nosilac: ', nosilac);
+                        console.log('Modulacija: ', modulacija);
+                        console.log('sNiz: ', sNiz);
+
+                        //Aca 2.4.4 24.3.2022. Čet. | test
+                        nizM = new Array();
+                        nizM = modulacijAa.map(() => {
+
+                            modulacijaAa.reduce((x, y) => {
+                                return x - y;
+                            });
+
+                        });
+
+                        console.log('nizM: ', nizM);
+            
+                    });
             
                     /*divA2 */
                     let whrA8 = document.createElement('hr');
