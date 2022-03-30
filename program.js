@@ -56,6 +56,7 @@ function watermarkF(){
 
     slikawAsl = new Image();
 
+    //slikaAf()
     function slikaAf(a){
 
         a.target.removeEventListener(a.type, arguments.callee);
@@ -77,9 +78,11 @@ function watermarkF(){
         whrA.width = 300;
         divA.appendChild(whrA);
 
+        //let
         let wKanvasA = document.createElement('canvas');
         divA.appendChild(wKanvasA);
 
+        //let
         let ctxWkanvasA = wKanvasA.getContext('2d');
     
         ulazA.addEventListener('change', function(){
