@@ -561,7 +561,7 @@ function watermarkF(){
                         proracunNizA = pikseliWAniz64.map((a, b) => {
             
                             //return a + Math.round(nizA[b] * 0.75);
-                            return a - nizA[b];
+                            return a - nizMf[b];
             
                         });
             
@@ -573,8 +573,8 @@ function watermarkF(){
                         podnizProracunAoF = new Array();
             
                         noviNizProracun = new Array();
-            
                         br = 0;
+
                         //Novoo | Test | 14.3.2022. | 8 => 4
                         for(let i = 0; i < 64; i+=4){
             
@@ -582,9 +582,15 @@ function watermarkF(){
                             podnizProracunA[br] = proracunNizA.slice(i, i + 4);
             
                             if(br % 2 == 0){
-                                podnizProracunAo[br] = podnizProracunA[br].map(a => a + 1.35);
+
+                                //podnizProracunAo[br] = podnizProracunA[br].map(a => a + 1.35);
+                                podnizProracunAo[br] = podnizProracunA[br].map(a => a + arSrMf);
+
                             } else if(br % 2 == 1){
-                                podnizProracunAo[br] = podnizProracunA[br].map(a => a - 0.75);
+
+                                //podnizProracunAo[br] = podnizProracunA[br].map(a => a - 0.75);
+                                podnizProracunAo[br] = podnizProracunA[br].map(a => a - arSrMf);
+
                             }
                             
                         }
@@ -603,7 +609,12 @@ function watermarkF(){
             
                         //Novoooo:
                         proracunWA.value = noviNizProracun;
-            
+
+                        console.log('proracunNizA: ', proracunNizA);
+                        console.log('podnizProračunA: ', podnizProracunA);
+                        console.log('podnizProracunAoF', podnizProracunAoF);
+                        console.log('noviNizProracun: ', noviNizProracun);
+
                     });
             
                     let whrA4 = document.createElement('hr');
@@ -631,8 +642,9 @@ function watermarkF(){
                         //dodavanjeT.textContent = 'Slika sa (umetnutim) dodatim watermarkom: ';
                         dodavanjeT.textContent = 'Image with watermark inserted: ';
                         divA3.appendChild(dodavanjeT); 
-            
-                        let wKanvasA1 = document.querySelector('canvas');
+                        
+                        //let
+                        wKanvasA1 = document.querySelector('canvas');
                         divA3.appendChild(wKanvasA1);
             
                         if(slikawAsl.width >= 1920){
@@ -651,8 +663,8 @@ function watermarkF(){
                         visina = slikawAsl.height;
             
                         //console.log('Širina i visina su: ', sirina, visina);
-            
-                        let ctxWkanvasA1 = wKanvasA1.getContext('2d');
+                        //let
+                        ctxWkanvasA1 = wKanvasA1.getContext('2d');
                         //console.log('Broj piksela ulazne slike je: ', pikseliWAniz.length);
             
                         slikaSaWatermarkomNiz = new Array();
@@ -698,6 +710,33 @@ function watermarkF(){
                     //wA6.textContent = 'Izvlačenje watermarka: ';
                     wA6.textContent = 'Watermark extraction: ';
                     divA4.appendChild(wA6);
+
+                    //let
+                    let btnWizdvajanje = document.createElement('button');
+                    btnWizdvajanje.textContent = 'Extract';
+                    divA4.appendChild(btnWizdvajanje);
+
+                    btnWizdvajanje.addEventListener('click', () => {
+                        
+                        //let
+                        let divA4a = document.createElement('div');
+                        divA4.appendChild(divA4a);
+
+                        let txtWiz = document.createElement('p');
+                        txtWiz.textContent = 'Watermark value: ';
+                        divA4a.appendChild(txtWiz);
+
+                        let txtaWizdvajanje = document.createElement('textarea');
+                        divA4a.appendChild(txtaWizdvajanje);
+
+                        let wIzvlacenjeA = ctxWkanvasA1.getImageData(0, 0, wKanvasA1.width, wKanvasA1.height);
+                        console.log('vIzvlacenjeNizA: ', wIzvlacenjeA);
+                        let wWatermark = wIzvlacenjeA.data;
+
+                        txtaWizdvajanje.value = wWatermark;
+
+                    });
+
                     /*divA4 */
             
                     let whrA5 = document.createElement('hr');
