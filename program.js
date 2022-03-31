@@ -886,8 +886,8 @@ function watermarkF(){
                         */
             
                         //PSNR
-                        PSNRv1 = 10 * Math.log10(255**2/srednjaKvadratnaGreska);
-                        PSNR = 10 * Math.log10(255**2/srednjaKvadratnaGreskaA);
+                        PSNRv1 = 10 * Math.log10(255**2/ srednjaKvadratnaGreska);
+                        PSNR = 10 * Math.log10(255**2/ srednjaKvadratnaGreskaA);
             
                         console.log('PSNRv1 = ', PSNRv1);
                         console.log('PSNR = ', PSNR);
@@ -1025,8 +1025,13 @@ function watermarkF(){
                         inpSigmax.value = sigmax;
                         divA7.appendChild(inpSigmax);
             
-                        let C1 = 1; 
-            
+                        let C1, K1, L;
+
+                        K1 = 1;
+                        L = 255;
+                        C1 = (K1 * L)**2;
+                        console.log('C1 = ', C1);
+
                         //y
                         let sigmayNiz = new Array();
             
@@ -1048,7 +1053,11 @@ function watermarkF(){
                         inpSigmay.value = sigmay;
                         divA7.appendChild(inpSigmay);
             
-                        let C2 = 2;
+                        let C2, K2;
+                        K2 = 2;
+                        C2 = (K2 * L)**2;
+                        console.log('C2 = ', C2);
+
                         //struktura
             
                         //funkcija za poređenje luminentnosti (osvetljenosti)
