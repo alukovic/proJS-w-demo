@@ -173,10 +173,12 @@ function watermarkF(){
                     /////////
                     //Aca 2.4.4 24.3.2022. Čet. | Test #1
 
+                    /*
                     let whrA1 = document.createElement('hr');
                     whrA1.width = 300;
                     divA.appendChild(whrA1);
-                    
+                    */
+                   
                     let btnWnovaSlika = document.createElement('button');
                     divA.appendChild(btnWnovaSlika);
             
